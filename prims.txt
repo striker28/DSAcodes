@@ -1,0 +1,115 @@
+package Prims;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Scanner;
+
+public class Prims {
+        static int V,E;
+        static List<Vertex> graph;
+	public static void main(String[] args) {
+		Prims primsDriver = new Prims();
+                Scanner in = new Scanner(System.in);
+                
+                V=in.nextInt();
+                E=in.nextInt();
+                
+                Vertex[] vertex = new Vertex[V];
+                
+                for(int i=0;i<V;i++){
+                    vertex[i] = new Vertex(i);
+                }
+		
+                int a;
+                int b;
+                int wt;
+                
+                for(int i=0;i<E;i++){
+                    a=in.nextInt();
+                    b=in.nextInt();
+                    wt=in.nextInt();
+                   
+                    vertex[a].incidentEdges.add(new Edge(vertex[b],wt));
+                }
+                graph = new ArrayList<Vertex>();
+                for(int i=0;i<V;i++){
+                    graph.add(vertex[i]);
+                }
+               // List<Vertex> graph = primsDriver.prepareGraphAdjacencyList();
+		primsDriver.primsMST(graph);
+		
+                for (Vertex v : graph){
+			if(v.previous != null)
+				System.out.println(v.name + " "+v.previous.name);
+		}
+	}
+
+	/**
+	 * COde for breadth first traversal given an adjacency list.
+	 * 
+	 * @param graph
+	 * @return
+	 */
+	private void primsMST(List<Vertex> graph) {
+
+		PriorityQueue<Vertex> priorityQueue = new PriorityQueue<Vertex>();
+		for (Vertex v : graph) {
+			v.key = Integer.MAX_VALUE;
+			priorityQueue.add(v);
+		}
+
+		Vertex peek = priorityQueue.peek();
+		peek.key = 0;
+
+		while (!priorityQueue.isEmpty()) {
+			Vertex minVertex = priorityQueue.poll();
+			if (minVertex.incidentEdges != null && minVertex.incidentEdges.size() > 0) {
+				for (Edge edge : minVertex.incidentEdges) {
+					if (priorityQueue.contains(edge.end) && edge.weight < edge.end.key) {
+						priorityQueue.remove(edge.end);
+						edge.end.key = edge.weight;
+						edge.end.previous = minVertex;
+						priorityQueue.add(edge.end);
+					}
+				}
+			}
+		}
+	}
+}
+
+class Vertex implements Comparable<Vertex> {
+	int name;
+	int key;
+	public List<Edge> incidentEdges=new ArrayList<Edge>();;   //adjacency list of everry vertex	
+        public Vertex previous;
+
+	public Vertex(int name) {
+		this.name = name;
+             //   List<Edge> incidentEdges= new ArrayList<Edge>();
+        }
+
+	@Override
+	public String toString() {
+		return "Vertex [name=" + name + ", key=" + key + ", previous=" + previous + "]";
+	}
+
+	@Override
+	public int compareTo(Vertex o) {
+		return Integer.compare(key, o.key);
+	}
+}
+class Edge {
+	int weight;
+	Vertex end;
+
+	public Edge(Vertex end, int weight) {
+		this.weight = weight;
+		this.end = end;
+	}
+
+	@Override
+	public String toString() {
+		return "Edge [weight=" + weight + ", end=" + end + "]";
+	}
+
+}
