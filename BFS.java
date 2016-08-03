@@ -12,20 +12,19 @@ import java.util.Scanner;
  *
  * @author Ayush
  */
-/*class Queue{
-    Queue(int n){
-        int data = n;
-        
-    }
-}*/
+
 public class BFS {
+	/*
+	 *Avoid static methods and variables
+	 */
+	
     static ArrayList<ArrayList<Integer>> al = new ArrayList<ArrayList<Integer>>();
     static Boolean[] visited;
-    static int n=0;
-    static int layer=0;
-    static int m=0;
+    static int n=0;            // number of nodes/vertices
+    static int layer=0;           
+    static int m=0;              //number of edges
     static int timeLeft=1;     //timeLeft before moving onto next layer
-    static ArrayList<Integer> queue = new ArrayList<>();
+    static ArrayList<Integer> queue = new ArrayList<>();   //Better to use a Queue DS
     public static void main(String args[]){
 	 
         /*Taking Input and stuff */
@@ -51,7 +50,7 @@ public class BFS {
              al.get(b).add(a);
          }
         /* The real code begins here
-            First call for DFS is from inside the visit function dfs(0)
+            First call for BFS is from inside the visit function Bfs(0)
          */
             queue.add(0);
             while(!queue.isEmpty()){
@@ -65,7 +64,7 @@ public class BFS {
                 }
                 
             }
-           // visit();
+            visit();    //Acts as a cross checking function
          }
 	
 	public static void bfs(int n){   
