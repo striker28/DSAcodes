@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 class Pair implements Comparable{
-    private int w;  // vertex 2
+    private int w;  // distance
     private int v;  // vertex 1
     public Pair(int w, int v) {
         this.w = w;
