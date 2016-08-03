@@ -25,10 +25,10 @@ class Pair implements Comparable{
 }
 
 
-public class Dikjstra{
+public class Dijsktra{
     private int V;   // No. of vertices
     private LinkedList<Pair> adj[]; // Adjacency List Represntation
-    Dikjstra(int v) {
+    Dijsktra(int v) {
         V = v;
         adj = new LinkedList[V];
         for(int i=0; i<v; ++i)
@@ -45,7 +45,7 @@ public class Dikjstra{
         Scanner in = new Scanner(System.in);
         int n=in.nextInt();
         int m=in.nextInt();
-        Dikjstra g1 = new Dikjstra(n);
+        Dijsktra g1 = new Dikjstra(n);
         int dist[] = new int[n];
         for(int i=0;i<m;i++){
             from=in.nextInt();
